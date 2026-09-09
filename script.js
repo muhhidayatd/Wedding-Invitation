@@ -1,0 +1,12 @@
+const opening=document.getElementById("opening"),openBtn=document.getElementById("openBtn"),music=document.getElementById("music"),musicBtn=document.getElementById("musicBtn");
+openBtn.onclick=()=>{opening.classList.add("hide");document.body.style.overflow="auto";music.play().catch(()=>{});musicBtn.classList.add("playing");musicBtn.textContent="❚❚"};
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add("show")),{threshold:.13});document.querySelectorAll(".reveal").forEach(x=>io.observe(x));
+const target=new Date("2026-12-12T09:00:00+08:00");
+function tick(){let d=Math.max(0,target-new Date());let vals=[Math.floor(d/864e5),Math.floor(d/36e5)%24,Math.floor(d/6e4)%60,Math.floor(d/1e3)%60];["days","hours","minutes","seconds"].forEach((id,i)=>document.getElementById(id).textContent=String(vals[i]).padStart(2,"0"))}setInterval(tick,1000);tick();
+musicBtn.onclick=()=>{if(music.paused){music.play();musicBtn.textContent="❚❚";musicBtn.classList.add("playing")}else{music.pause();musicBtn.textContent="♪";musicBtn.classList.remove("playing")}};
+function copyAccount(){navigator.clipboard.writeText(document.getElementById("account").textContent);alert("Nomor rekening berhasil disalin.");}
+document.getElementById("rsvpForm").onsubmit=e=>{e.preventDefault();document.getElementById("rsvpMsg").textContent=`Terima kasih, ${document.getElementById("rsvpName").value}. Konfirmasi berhasil diterima ❤️`;e.target.reset()};
+document.getElementById("wishForm").onsubmit=e=>{e.preventDefault();let n=document.getElementById("wishName").value,t=document.getElementById("wishText").value,d=document.createElement("div");d.className="wish";d.innerHTML=`<b>${safe(n)}</b><span>${safe(t)}</span>`;document.getElementById("wishList").prepend(d);e.target.reset()};
+function safe(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+const glow=document.querySelector(".cursor-glow");document.onmousemove=e=>{glow.style.left=e.clientX+"px";glow.style.top=e.clientY+"px"};
+for(let i=0;i<28;i++){let p=document.createElement("i");p.className="particle";p.style.left=Math.random()*100+"%";p.style.animationDuration=8+Math.random()*12+"s";p.style.animationDelay=Math.random()*12+"s";document.getElementById("particles").appendChild(p)}
